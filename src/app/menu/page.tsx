@@ -1,21 +1,24 @@
+"use client"
 import { MenuType } from '@/types/types'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
-    cache: "no-store"
-  })
 
-  if(!res.ok){
-    throw new Error("failed")
+
+const MenuPage = () => {
+  const [menu, setMenu] = useState<MenuType>([]);
+
+  useEffect(() => {
+    getData()
+  },[])
+
+  const getData = async () => {
+    await fetch("http://localhost:3000/api/categories", {
+      cache: "no-store"
+    }).then(res => res.json())
+    .then(data => setMenu(data))
   }
-  return res.json()
-}
 
-const MenuPage = async () => {
-
-  const menu:MenuType = await getData()
   return (
     <div className='p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] 
     md-[calc(100vh-9rem)] flex flex-col md:flex-row'>
