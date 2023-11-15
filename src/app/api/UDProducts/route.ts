@@ -27,7 +27,7 @@ export const POST = async (req: NextRequest) => {
     );
   }
 };
-export const DELETE =async (req:NextResponse) => {
+export const DELETE =async (req:NextRequest) => {
   try {
     const body = await req.json();
     const product = await prisma.product.delete({
