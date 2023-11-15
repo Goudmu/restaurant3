@@ -1,23 +1,8 @@
 import Login from "@/components/Login";
-import { UserType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 
-
-const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/user", {
-    cache: "no-store"
-  })
-
-  if(!res.ok){
-    throw new Error("failed")
-  }
-  return res.json()
-}
-
 const LoginPage = async () => {
-  const user:UserType[] = await getData();
-  
   return (
     <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
       {/* BOX */}

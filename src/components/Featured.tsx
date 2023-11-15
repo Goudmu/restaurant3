@@ -1,22 +1,23 @@
+"use client"
+
 import { ProductType } from '@/types/types'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const getData = async () => {
-  const res = await fetch(`http://localhost:3000/api/products`, {
-    cache: "no-store"
-  })
+const Featured = () => {
+  const [featuredProducts, setfeaturedProducts] = useState<ProductType[]>([]);
+  // const featuredProducts:ProductType[] = await getData();
+  useEffect(() => {
+    getData()
+  },[])
 
-  if(!res.ok){
-    throw new Error("failed")
+  const getData = async () => {
+    await fetch(`http://localhost:3000/api/products`, {
+      cache: "no-store"
+    }).then(res => res.json())
+    .then(data => setfeaturedProducts(data))
   }
-  return res.json()
-}
-
-
-const Featured = async () => {
-
-  const featuredProducts:ProductType[] = await getData();
+  
   return (
     <div className='w-full overflow-x-scroll text-red-500' >
       {/* WRAPPER */}
